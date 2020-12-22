@@ -174,9 +174,7 @@ export const Form: FC<FormProps> = () => {
     );
   };
 
-  console.log({ formState });
-
-  const handleInput = (event: any, name: string) => {
+  const handleInputText = (event: any, name: string) => {
     event.persist();
     saveToLocalStorage();
     if (name === "socialSecurityNumber") {
@@ -221,8 +219,6 @@ export const Form: FC<FormProps> = () => {
     }
   };
 
-  console.log(isValidSocialSecurityNumber(personalNumber));
-
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Rocker Form</Text>
@@ -230,7 +226,7 @@ export const Form: FC<FormProps> = () => {
         style={styles.textStyled}
         placeholder="YYYYMMDDNNNN"
         keyboardType="numeric"
-        onChange={(event) => handleInput(event, "socialSecurityNumber")}
+        onChange={(event) => handleInputText(event, "socialSecurityNumber")}
         value={formState.socialSecurityNumber}
         maxLength={12}
       />
@@ -241,7 +237,7 @@ export const Form: FC<FormProps> = () => {
         style={styles.textStyled}
         placeholder="10 digit number"
         keyboardType="numeric"
-        onChange={(event) => handleInput(event, "phoneNumber")}
+        onChange={(event) => handleInputText(event, "phoneNumber")}
         value={formState.phoneNumber}
         maxLength={10}
       />
@@ -251,7 +247,7 @@ export const Form: FC<FormProps> = () => {
       <TextInput
         style={styles.textStyled}
         placeholder="Enter your email address"
-        onChange={(event) => handleInput(event, "email")}
+        onChange={(event) => handleInputText(event, "email")}
         value={formState.email}
       />
       {!isEmailValid && formState.email.length > 0 && (
