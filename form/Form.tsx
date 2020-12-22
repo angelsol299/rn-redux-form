@@ -21,8 +21,8 @@ export const Form: FC<FormProps> = () => {
     country: "",
   });
   const [warning, setWarning] = useState({
-    phoneNumber: "",
     socialSecurityNumber: "",
+    phoneNumber: "",
     email: "",
     country: "",
   });
@@ -103,7 +103,7 @@ export const Form: FC<FormProps> = () => {
         phoneNumber: "Please enter a 10 digits phone number",
       });
     }
-    if (formState.country.length === 0) {
+    if (formState.country === null) {
       setWarning({
         ...warning,
         country: "Please select a country",
@@ -117,7 +117,7 @@ export const Form: FC<FormProps> = () => {
       isSocialSecurityNumberValidLength &&
       isEmailValid &&
       formState.phoneNumber.length === 10 &&
-      formState.country.length !== 0
+      formState.country !== null
     ) {
       dispatch({
         type: "SEND_FORM",
@@ -254,7 +254,7 @@ export const Form: FC<FormProps> = () => {
         <Text style={styles.warning}>{warning.email}</Text>
       )}
       <CountrySelect />
-      {formState.country.length === 0 && (
+      {formState.country === null && (
         <Text style={styles.warning}>{warning.country}</Text>
       )}
       <Button title="Send" onPress={() => sendForm()} />

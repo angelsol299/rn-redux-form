@@ -1,8 +1,8 @@
 const initialState = {
   state: {
     socialSecurityNumber: "",
-    email: "",
     phoneNumber: "",
+    email: "",
     country: "",
   },
 };
@@ -13,8 +13,8 @@ export const rootReducer = (state = initialState, action: any) => {
         ...state,
         state: {
           socialSecurityNumber: action.payload.socialSecurityNumber,
-          email: action.payload.email,
           phoneNumber: action.payload.phoneNumber,
+          email: action.payload.email,
           country: action.payload.country,
         },
       };
