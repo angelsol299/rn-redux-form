@@ -1,5 +1,12 @@
 import React, { useState, FC, useEffect } from "react";
-import { View, Text, Button, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { useDispatch } from "react-redux";
 import axios from "axios";
@@ -103,7 +110,7 @@ export const Form: FC<FormProps> = () => {
         phoneNumber: "Please enter a 10 digits phone number",
       });
     }
-    if (formState.country === null) {
+    if (formState.country === null || formState.country.length === 0) {
       setWarning({
         ...warning,
         country: "Please select a country",
@@ -117,7 +124,7 @@ export const Form: FC<FormProps> = () => {
       isSocialSecurityNumberValidLength &&
       isEmailValid &&
       formState.phoneNumber.length === 10 &&
-      formState.country !== null
+      formState.country.length > 0
     ) {
       dispatch({
         type: "SEND_FORM",
@@ -250,14 +257,16 @@ export const Form: FC<FormProps> = () => {
         onChange={(event) => handleInputText(event, "email")}
         value={formState.email}
       />
-      {!isEmailValid && formState.email.length > 0 && (
-        <Text style={styles.warning}>{warning.email}</Text>
-      )}
+      {!isEmailValid && <Text style={styles.warning}>{warning.email}</Text>}
       <CountrySelect />
-      {formState.country === null && (
+      {(formState.country === null || formState.country.length === 0) && (
         <Text style={styles.warning}>{warning.country}</Text>
       )}
-      <Button title="Send" onPress={() => sendForm()} />
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={() => sendForm()}>
+          <Text style={styles.buttonText}>Send</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -280,5 +289,21 @@ const styles = StyleSheet.create({
   },
   warning: {
     color: "#ff0000",
+  },
+  buttonContainer: {
+    marginTop: 15,
+    justifyContent: "center",
+    paddingHorizontal: 50,
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "grey",
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 20,
   },
 });
